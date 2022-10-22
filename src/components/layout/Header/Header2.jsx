@@ -11,12 +11,48 @@ import {
   Stack,
   useColorMode,
   Text,
+  Badge,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 import "../../../App.css";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header2() {
+  const navigate = useNavigate();
+  const [authState, setAuthState] = useState({
+    username: "",
+    id: 0,
+    status: false,
+  });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/auth/auth", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((response) => {
+        if (response.data.error) {
+          setAuthState({ ...authState, status: false });
+        } else {
+          setAuthState({
+            username: response.data.username,
+            id: response.data.id,
+            status: true,
+          });
+        }
+      });
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState({ username: "", id: 0, status: false });
+    navigate("/");
+  };
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <>
@@ -40,11 +76,11 @@ export default function Header() {
                 </Text>
 
                 <Text marginLeft={10}>
-                  <Link to="/login">Login</Link>
+                  <Link to="/employee">Employees</Link>
                 </Text>
 
                 <Text marginLeft={10}>
-                  <Link to="/registration">Registration</Link>
+                  <Link to="/about">About</Link>
                 </Text>
               </Box>
             </div>
@@ -57,8 +93,18 @@ export default function Header() {
                 justifyContent={"center"}
                 spacing={7}
               >
-                <Text>EN</Text>
-
+                <Box>
+                  <Button mr={2} bg={"Window"}>
+                    {" "}
+                    {authState.username}{" "}
+                  </Button>
+                  {authState.status && (
+                    <Button bg={" ThreeDFace"} onClick={logout}>
+                      {" "}
+                      Logout
+                    </Button>
+                  )}
+                </Box>
                 <Button width={10} onClick={toggleColorMode}>
                   {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
                 </Button>
