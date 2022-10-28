@@ -4,7 +4,6 @@ import {
   FormControl,
   FormLabel,
   InputGroup,
-  HStack,
   Stack,
   Button,
   Heading,
@@ -39,7 +38,7 @@ function Registration() {
   return (
     <div>
       <Flex
-        minH={"100vh"}
+        minH={"80vh"}
         align={"center"}
         justify={"center"}
         bg={useColorModeValue("gray.50", "gray.800")}
@@ -47,7 +46,7 @@ function Registration() {
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"} textAlign={"center"}>
-              Sign up
+              Create an account
             </Heading>
 
             <Text fontSize={"lg"} color={"gray.400"}>
@@ -72,7 +71,7 @@ function Registration() {
               >
                 <Form className="formContainer">
                   <FormControl id="email" isRequired>
-                    <FormLabel>Email address</FormLabel>
+                    <FormLabel mt={7}>Email address</FormLabel>
                     <ErrorMessage
                       style={{ color: "red" }}
                       name="username"
@@ -93,7 +92,7 @@ function Registration() {
                     />
                   </FormControl>
                   <FormControl id="password" isRequired>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel mt={10}>Password</FormLabel>
                     <InputGroup>
                       <ErrorMessage
                         style={{ color: "red" }}

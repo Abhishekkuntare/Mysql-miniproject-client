@@ -1,10 +1,25 @@
 import React from "react";
-import { Stack, Text, Button, Box } from "@chakra-ui/react";
+import { Stack, Text, Button, Flex, Input } from "@chakra-ui/react";
 import { FcLock } from "react-icons/fc";
+import { useState } from "react";
+import { toggle } from "../features/cookie";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Cookies() {
+  const [cookies, setCookies] = useState("");
+  const dispatch = useDispatch();
+  const cookieSave = useSelector((state) => state.cookie.value);
+
   return (
-    <div>
+    <Flex
+      style={{ display: cookieSave }}
+      align={"center"}
+      justify={"center"}
+      position={"fixed"}
+      bottom={0}
+      right={0}
+      left={0}
+    >
       <Stack p="4" boxShadow="lg" m="4" borderRadius="sm">
         <Stack direction="row" alignItems="center">
           <Text fontWeight="semibold">Your Privacy</Text>
@@ -23,13 +38,20 @@ export default function Cookies() {
             consent, please update your Cookie Preferences.
           </Text>
           <Stack direction={{ base: "column", md: "row" }}>
-            <Button variant="outline" colorScheme="green">
-              Cookie Preferences
+            <Input
+              type="text"
+              onChange={(e) => setCookies(e.target.value)}
+              placeholder="enter none to save"
+            />
+            <Button
+              colorScheme="green"
+              onClick={() => dispatch(toggle(cookies))}
+            >
+              OK
             </Button>
-            <Button colorScheme="green">OK</Button>
           </Stack>
         </Stack>
       </Stack>
-    </div>
+    </Flex>
   );
 }

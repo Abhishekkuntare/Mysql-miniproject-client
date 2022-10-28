@@ -9,7 +9,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import * as React from "react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import {
+  FaGithub,
+  FaInbox,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
 import TopToBottom from "../../TopToBottom/TopToBottom";
 
 const Footer = () => (
@@ -90,7 +96,7 @@ const Footer = () => (
             as="a"
             href="#"
             aria-label="GitHub"
-            icon={<FaGithub fontSize="1.25rem" />}
+            icon={<FaInstagram fontSize="1.25rem" />}
           />
           <IconButton
             as="a"
